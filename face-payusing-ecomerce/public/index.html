@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopEase - Home</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="logo">ShopEase</div>
+        <ul class="nav-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="product.html">Products</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="./src/signup.html">Register</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <h1>Welcome to ShopEase</h1>
+        <p>Your one-stop shop for amazing products at unbeatable prices!</p>
+        <a href="product.html" class="shop-btn">Shop Now</a>
+    </header>
+
+    <!-- Featured Products Section -->
+    <section class="featured-products">
+        <h2>Featured Products</h2>
+        <div class="product-container" id="featuredProducts"></div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <h2>About Us</h2>
+        <p>At ShopEase, we provide top-quality products at affordable prices. Our mission is to make online shopping easy, fast, and enjoyable for everyone.</p>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <h2>Contact Us</h2>
+        <p>Email: support@shopease.com | Phone: +123-456-7890</p>
+        <p>Follow us on:</p>
+        <div class="social-links">
+            <a href="#">Facebook</a> | <a href="#">Instagram</a> | <a href="#">Twitter</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 ShopEase. All rights reserved.</p>
+    </footer>
+
+    <script>
+        async function fetchFeaturedProducts() {
+            const response = await fetch("http://localhost:5000/products");
+            const products = await response.json();
+            const productList = document.getElementById("featuredProducts");
+
+            productList.innerHTML = products.slice(0, 3).map(product => 
+                `<div class="product-card">
+                    <img src="http://localhost:5000${product.image}" alt="${product.name}">
+                    <h3>${product.name}</h3>
+                    <p class="product-price">$${product.price}</p>
+                    <a href="productDetails.html?id=${product._id}" class="buy-btn">View More</a> 
+                </div>`
+            ).join("");
+        }
+
+        fetchFeaturedProducts();
+    </script>
+
+</body>
+</html>
